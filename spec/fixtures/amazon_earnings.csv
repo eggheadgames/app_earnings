@@ -1,0 +1,32 @@
+Amazon Mobile App Distribution
+Earnings Report
+1/1/2014 - 1/31/2014
+Mobile Apps
+
+Notes
+Gross Earnings  -  Gross royalties and/or commissions earned by the developer during the period.
+Refunds  -  The royalty and/or commission portion of the total amount refunded to customers who returned their purchase.
+"Adjustments  -  Sum of all adjustments that occurred on your account during the specified month, such as pricing adjustments for marketing promotions. Please contact us with questions about a specific adjustment."
+Earnings Before Tax  -   May not reflect the actual disbursement values when royalties are subject to a withholding or payment thresholds have not been met. Please see the FAQ on the developer portal or your developer agreement for more detail.
+
+Summary
+Marketplace,From Date,To Date,Charge Units,Refund Units,Gross Earnings,Gross Earnings Currency Code,Refunds,Refunds Currency Code,Adjustments,Adjustments Currency Code,Earnings Before Tax,Earnings Before Tax Currency Code
+Amazon.ca,1/1/2014,1/31/2014,7,0,2.09,CAD,0.00,CAD,0.00,CAD,1.00,CAD
+Amazon.cn,1/1/2014,1/31/2014,0,0,0.00,CNY,0.00,CNY,0.00,CNY,0.00,CNY
+Amazon.co.jp,1/1/2014,1/31/2014,0,0,0,JPY,0,JPY,0,JPY,0,JPY
+Amazon.co.uk,1/1/2014,1/31/2014,244,0,73.61,GBP,0.00,GBP,0.00,GBP,20.00,GBP
+Amazon.com,1/1/2014,1/31/2014,"3,121",-2,"2,146.67",USD,(4.18),USD,0.00,USD,"2,000.12",USD
+Amazon.com.au,1/1/2014,1/31/2014,0,0,0.00,AUD,0.00,AUD,0.00,AUD,0.00,AUD
+Amazon.com.br,1/1/2014,1/31/2014,0,0,0.00,BRL,0.00,BRL,0.00,BRL,0.00,BRL
+Amazon.de,1/1/2014,1/31/2014,0,0,0.00,EUR,0.00,EUR,0.00,EUR,0.00,EUR
+Amazon.es,1/1/2014,1/31/2014,0,0,0.00,EUR,0.00,EUR,0.00,EUR,0.00,EUR
+Amazon.fr,1/1/2014,1/31/2014,0,0,0.00,EUR,0.00,EUR,0.00,EUR,0.00,EUR
+Amazon.it,1/1/2014,1/31/2014,0,0,0.00,EUR,0.00,EUR,0.00,EUR,0.00,EUR
+
+Detail
+Marketplace,Date,App,Item Name,Period,Vendor SKU,Item Type,Transaction Type,List Price,List Price Currency Code,Sales Price,Sales Price Currency Code,units,Gross Earnings or Refunds,Gross Earnings or Refunds Currency Code
+Amazon.com,1/1/2014,App,,,,Apps,CHARGE,2.99,USD,2.99,USD,4,8.36,USD
+Amazon.co.uk,1/1/2014,Metal Gear,,,,Apps,CHARGE,1.09,GBP,0.51,GBP,1,0.36,GBP
+Amazon.com,1/1/2014,Metal Gear,,,,Apps,CHARGE,1.99,USD,0.99,USD,8,5.52,USD
+Amazon.co.uk,1/1/2014,Metal Gear FREE Trial,,,,Apps,CHARGE,0.00,GBP,0.00,GBP,1,0.00,GBP
+Amazon.com,1/1/2014,Metal Gear FREE Trial,,,,Apps,CHARGE,0.00,USD,0.00,USD,14,0.00,USD

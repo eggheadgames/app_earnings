@@ -1,0 +1,4 @@
+Description,Transaction Date,Transaction Time,Tax Type,Transaction Type,Refund Type,Product Title,Product id,Product Type,Sku Id,Hardware,Buyer Country,Buyer State,Buyer Postal Code,Buyer Currency,Amount (Buyer Currency),Currency Conversion Rate,Merchant Currency,Amount (Merchant Currency)
+1376321714625257,"Jan 29, 2014",7:33:12 AM PST,,Charge,,Flappy Bird,com.example.flappy,0,,m0,AU,QLD,4520,AUD,2.99,0.874200,USD,2.61
+1376321714625257,"Jan 29, 2014",7:33:12 AM PST,,Google fee,,Flappy Bird,com.example.flappy,0,,m0,AU,QLD,4520,AUD,-0.90,0.874200,USD,-0.79
+1346161764058234,"Jan 29, 2014",8:03:14 AM PST,,Charge,,Flappy Clone,example.clone,0,,espresso10rf,AU,,3165,AUD,2.99,0.875700,USD,2.62

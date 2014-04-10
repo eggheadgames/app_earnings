@@ -1,0 +1,18 @@
+Amazon Mobile App Distribution
+Payment Report
+1/23/2014 - 2/10/2014
+Mobile Apps
+
+Notes
+Payment Cost is the cost of disbursing your earnings in your home currency
+Tax Witheld is the taxes Amazon withholds from your earnings due to US tax withholding requirements
+A more detailed calculation of earnings can be found in the Earnings Report.
+
+Summary
+Payment Date,Marketplace,Earnings Period,Earnings Before Tax,Earnings Before Tax Currency Code,Tax Withheld,Tax Withheld Currency Code,Payment Cost,Payment Cost Currency Code,Payment Method,FX Rate,Total Payment,Total Payment Currency Code,Payment Comment
+1/30/2014,Amazon.ca,12/1/2013 - 12/31/2013,2.09,CAD,0.00,CAD,0.00,CAD,EFT,0.894737,1.0,USD,
+1/30/2014,Amazon.co.uk,12/1/2013 - 12/31/2013,115.24,GBP,0.00,GBP,0.00,GBP,EFT,1.655675,100.10,USD,
+1/30/2014,Amazon.com,12/1/2013 - 12/31/2013,"2,221.57",USD,0.00,USD,0.00,USD,EFT,1.000000,"2,200.12",USD,
+1/30/2014,Amazon.com.au,12/1/2013 - 12/31/2013,4.54,AUD,0.00,AUD,0.00,AUD,EFT,0.876652,2.00,USD,
+1/30/2014,Amazon.de,12/1/2013 - 12/31/2013,1.52,EUR,0.00,EUR,0.00,EUR,EFT,1.361842,2.07,USD,
+
