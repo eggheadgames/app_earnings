@@ -19,11 +19,11 @@ describe AppEarnings::Report do
   end
 
   it "should not include transactions made for IAP" do
-    expect(@report.transactions_from_product.all? { |tr| tr[:sku_id].nil? }).to be_true
+    expect(@report.transactions_from_product.all? { |tr| tr[:sku_id].nil? }).to be_truthy
   end
 
   it "should not include transactions made from product" do
-    expect(@report.transactions_from_in_app_purchases.all? { |tr| !tr[:sku_id].nil? }).to be_true
+    expect(@report.transactions_from_in_app_purchases.all? { |tr| !tr[:sku_id].nil? }).to be_truthy
   end
 
   it "should group transactions by product title (IAP)" do

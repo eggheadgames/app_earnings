@@ -28,5 +28,5 @@ EOF
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rubocop", "~> 0.18.1"
   spec.add_development_dependency "ruby-lint", "~> 1.1.0"
-  spec.add_development_dependency "rspec", "~> 2.14"
+  spec.add_development_dependency "rspec", "~> 3.0.0"
 end

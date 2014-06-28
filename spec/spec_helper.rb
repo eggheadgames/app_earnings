@@ -2,13 +2,13 @@ require './lib/app_earnings'
 
 RSpec.configure do |config|
   config.mock_with :rspec
-  config.color_enabled = true
+  config.color = true
   config.tty = true
 
   config.formatter = :documentation # :progress, :html, :textmate
   config.before do
-    AppEarnings::Amazon::Reporter.any_instance.stub(:puts)
-    AppEarnings::GooglePlay::Reporter.any_instance.stub(:puts)
+    allow_any_instance_of(AppEarnings::Amazon::Reporter).to receive(:puts)
+    allow_any_instance_of(AppEarnings::GooglePlay::Reporter).to receive(:puts)
   end
 end
 

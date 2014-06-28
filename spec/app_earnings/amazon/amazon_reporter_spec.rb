@@ -18,11 +18,11 @@ describe AppEarnings::Amazon::Reporter do
   end
 
   it "should sum refunds" do
-    reporter.refunds.should eql(4.18)
+    expect(reporter.refunds).to eql(4.18)
   end
 
   it "should return total amount" do
     reporter.generate
-    reporter.full_amount.should eql(10.3)
+    expect(reporter.full_amount).to eql(10.3)
   end
 end
