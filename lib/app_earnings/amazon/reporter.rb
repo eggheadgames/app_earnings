@@ -12,10 +12,10 @@ module AppEarnings::Amazon
     end
 
     def fetch_exchange_info
-      @payments_full_amount = 0.0
+      @payments_amount = 0.0
       @payments_data[:summary].reduce({}) do |all_info, data|
         all_info[data[:marketplace]] = data[:fx_rate]
-        @payments_full_amount += data[:total_payment].gsub(/,/, '').to_f
+        @payments_amount += data[:total_payment].gsub(/,/, '').to_f
         all_info
       end
     end
@@ -27,10 +27,11 @@ module AppEarnings::Amazon
 
     def refunds
       @earnings_data[:summary].reduce(0.0) do |sum, marketplace|
-        currency = marketplace[:refunds_currency_code]
+        currency = marketplace[:marketplace]
         amount = marketplace[:refunds].gsub(/\(|\)/, '').to_f
         amount = amount * @exchange_info[currency].to_f if currency != 'USD'
-        sum + amount
+        sum += amount
+        sum
       end
     end
 
@@ -70,13 +71,11 @@ module AppEarnings::Amazon
     def as_text
       amount = AppEarnings::Report.formatted_amount('USD', full_amount)
       refund = AppEarnings::Report.formatted_amount('USD', refunds)
+      payments = AppEarnings::Report.formatted_amount('USD', @payments_amount)
       puts @reports
       puts "Total of refunds: #{refund}"
       puts "Total of all transactions: #{amount}"
-
-      if @payments_full_amount.round(2) != full_amount
-        puts "Total from Payment Report: #{@payments_full_amount.round(2)}"
-      end
+      puts "Total from Payment Report: #{payments}" if amount != payments
       @reports
     end
 
