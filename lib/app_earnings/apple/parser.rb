@@ -1,9 +1,9 @@
 require 'csv'
 
 module AppEarnings::Apple
-  # Converts a csv file to a hash.
+  # Parse reports and convert them a hash.
   class Parser
-    attr_accessor :file_name
+    attr_accessor :file_name, :contents
     FX_HEADER = %W(Currency
                    Beginning\ Balance
                    Earned

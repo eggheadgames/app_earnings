@@ -2,7 +2,7 @@ module AppEarnings::Apple
   # Generates a report based on the data provided
   class Reporter
     AVAILABLE_FORMATS = %w(json text)
-    attr_accessor :data
+    attr_accessor :data, :config, :payments_amount, :exchange_info
 
     def initialize(config, data)
       @config = config
@@ -17,7 +17,7 @@ module AppEarnings::Apple
     def fetch_exchange_info
       @payments_amount = 0.0
       @payments_data[:details].reduce({}) do |all_info, data|
-        all_info[data[:currency].strip] = data[:fx_rate]
+        all_info[data[:currency].strip] = data[:fx_rate].to_f
         @payments_amount += data[:payment].gsub(/,/, '').to_f
         all_info
       end
