@@ -1,0 +1,6 @@
+Start Date	End Date	UPC	ISRC/ISBN	Vendor Identifier	Quantity	Partner Share	Extended Partner Share	Partner Share Currency	Sales or Return	Apple Identifier	Artist/Show/Developer/Author	Title	Label/Studio/Network/Developer/Publisher	Grid	Product Type Identifier	ISAN/Other Identifier	Country Of Sale	Pre-order Flag	Promo Code	Customer Price	Customer Currency
+03/30/2014	05/03/2014			Chess	1	5.10	5.10	AED	S	577102408		Chess			T1		AE			7.29	AED
+03/30/2014	05/03/2014			vol2	1	5.10	5.10	AED	S	577102408		vol2			IA1		AE			7.29	AED
+Total_Rows	1
+Total_Amount	5.1
+Total_Units	1

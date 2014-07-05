@@ -12,19 +12,22 @@ module AppEarnings
     end
 
     def transactions_by_type
-      transactions.group_by { |transaction| transaction[:transaction_type] }
+      transactions.group_by do |transaction|
+        transaction[:transaction_type] || transaction[:sales_or_return]
+      end
     end
 
     def transactions_from_in_app_purchases
       transactions.reject do |tr|
-        tr[:sku_id].nil? && tr[:vendor_sku].nil?
+        tr[:sku_id].nil? &&
+        tr[:vendor_sku].nil?
       end
     end
 
     def transactions_from_in_app_purchases_by_id_and_name
       transactions_from_in_app_purchases.group_by do |tr|
-        [tr[:sku_id] || tr[:vendor_sku],
-         tr[:item_name] || tr[:product_title]]
+        [tr[:sku_id] || tr[:vendor_sku] || tr[:vendor_identifier],
+         tr[:item_name] || tr[:product_title] || tr[:title]]
       end
     end
 

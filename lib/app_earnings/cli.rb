@@ -27,5 +27,17 @@ module AppEarnings
         puts "Files '#{payments}' and '#{earnings}' were not found!"
       end
     end
+
+    desc 'apple path/to/folder', 'Generates a '\
+                    'detailed report for the Apple report files'
+    method_option :format, type: :string, default: 'text',
+                           aliases: '-f', enum: %w(text json)
+    def apple(path)
+      if Dir.exists?(path)
+        AppEarnings.apple_report(path, options[:format])
+      else
+        puts "Path '#{path}' not found!"
+      end
+    end
   end
 end

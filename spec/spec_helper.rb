@@ -9,6 +9,7 @@ RSpec.configure do |config|
   config.before do
     allow_any_instance_of(AppEarnings::Amazon::Reporter).to receive(:puts)
     allow_any_instance_of(AppEarnings::GooglePlay::Reporter).to receive(:puts)
+    allow_any_instance_of(AppEarnings::Apple::Reporter).to receive(:puts)
   end
 end
 
