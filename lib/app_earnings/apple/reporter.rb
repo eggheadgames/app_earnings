@@ -28,17 +28,23 @@ module AppEarnings::Apple
     end
 
     def transactions_by_app
-      apps = {}
+      apps = Hash.new { |h, k| h[k] = [] }
       @config.each do |app, in_apps|
         @earnings_data.each do |transaction|
           if transaction[:vendor_identifier] == app ||
             in_apps.include?(transaction[:vendor_identifier])
-            apps[app] ||= []
             apps[app] << transaction
           end
         end
       end
       apps
+    end
+
+    def missing_reports
+      found = transactions_by_app.reduce([]) do |a, e|
+        a << e[1]
+      end.flatten
+      @earnings_data - found
     end
 
     def generate
@@ -72,7 +78,9 @@ module AppEarnings::Apple
     def as_text
       amount = AppEarnings::Report.formatted_amount('USD', full_amount)
       payments = AppEarnings::Report.formatted_amount('USD', @payments_amount)
+      not_found = missing_reports.map { |tr| tr[:vendor_identifier] }.uniq
       puts @reports
+      puts "Apps missing: #{not_found.join(", ")}" unless not_found.empty?
       puts "Total of all transactions: #{amount}"
       puts "Total from Payment Report: #{payments}" if amount != payments
       @reports
