@@ -66,9 +66,21 @@ module AppEarnings
         end
     end
 
+    def csv_formatted_total_by_products
+      total_from_in_app_purchases.sort_by { |product| product[:id] }
+        .map do |app|
+          amount = Report.amount_for_csv(app[:currency], app[:amount])
+          "\"#{app[:id]} - #{app[:name]}\", \"#{amount}\""
+        end
+    end
+
     def self.formatted_amount(currency, amount)
       symbol = ISO4217::Currency.from_code(currency).symbol
       "#{currency} #{symbol}#{sprintf('%.2f', amount)}"
+    end
+
+    def self.amount_for_csv(currency, amount)
+      formatted_amount(currency, amount).split(' ').join("\",\"")
     end
 
     def to_json
@@ -80,6 +92,16 @@ module AppEarnings
         currency: @currency,
         subtotals: total_from_in_app_purchases
       }
+    end
+
+    def to_csv
+      %Q("#{@name} #{@description}"
+"Transactions:","#{formatted_transactions_count_by_type.join("\",\"")}"
+"Total:","#{Report.amount_for_csv(@currency, @amount)}"
+
+"Sub totals by IAP:"
+#{csv_formatted_total_by_products.join("\n")}
+)
     end
 
     def to_s

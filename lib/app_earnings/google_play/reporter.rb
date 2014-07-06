@@ -5,7 +5,7 @@ require 'iso4217'
 module AppEarnings::GooglePlay
   # Generates a report based on the data provided
   class Reporter
-    AVAILABLE_FORMATS = %w(json text)
+    AVAILABLE_FORMATS = %w(json text csv)
     attr_accessor :raw_data
 
     def initialize(raw_data)
@@ -44,6 +44,8 @@ module AppEarnings::GooglePlay
         as_text
       when 'json'
         as_json
+      when 'csv'
+        as_csv
       end
     end
 
@@ -60,6 +62,14 @@ module AppEarnings::GooglePlay
       puts JSON.generate(apps: @reports.map(&:to_json),
                          currency: currency,
                          total: total)
+    end
+
+    def as_csv
+      currency, total = full_amount
+      formatted_amount = AppEarnings::Report.formatted_amount(currency, total)
+      @reports.each { |report| puts report.to_csv }
+      puts "\"Total of all transactions:\", #{formatted_amount}\""
+      @reports
     end
   end
 end

@@ -1,7 +1,7 @@
 module AppEarnings::Amazon
   # Generates a report based on the data provided
   class Reporter
-    AVAILABLE_FORMATS = %w(json text)
+    AVAILABLE_FORMATS = %w(json text csv)
     attr_accessor :data
 
     def initialize(data)
@@ -65,6 +65,8 @@ module AppEarnings::Amazon
         as_text
       when 'json'
         as_json
+      when 'csv'
+        as_csv
       end
     end
 
@@ -83,6 +85,17 @@ module AppEarnings::Amazon
       puts JSON.generate(apps: @reports.map(&:to_json),
                          currency: 'USD',
                          total: full_amount)
+    end
+
+    def as_csv
+      amount = AppEarnings::Report.amount_for_csv('USD', full_amount)
+      refund = AppEarnings::Report.amount_for_csv('USD', refunds)
+      payments = AppEarnings::Report.amount_for_csv('USD', @payments_amount)
+      @reports.each { |report| puts report.to_csv }
+      puts %Q("Total of refunds:",#{refund}")
+      puts %Q("Total of all transactions:",#{amount}")
+      puts %Q("Total from Payment Report:", #{payments}") if amount != payments
+      @reports
     end
   end
 end

@@ -7,7 +7,7 @@ module AppEarnings
     desc 'play PlayApps.csv', 'Generates a detailed report'\
                               ' for the provided Google Play transaction file'
     method_option :format, type: :string, default: 'text',
-                           aliases: '-f', enum: %w(text json)
+                           aliases: '-f', enum: %w(text json csv)
     def play(name)
       if File.exists?(name)
         AppEarnings.play_report(name, options[:format])
@@ -19,7 +19,7 @@ module AppEarnings
     desc 'amazon PaymentReport.csv EarningsReport.csv', 'Generates a '\
                           'detailed report for the Amazon report files'
     method_option :format, type: :string, default: 'text',
-                           aliases: '-f', enum: %w(text json)
+                           aliases: '-f', enum: %w(text json csv)
     def amazon(payments, earnings)
       if File.exists?(payments) && File.exists?(earnings)
         AppEarnings.amazon_report(payments, earnings, options[:format])
@@ -31,7 +31,7 @@ module AppEarnings
     desc 'apple path/to/folder', 'Generates a '\
                     'detailed report for the Apple report files'
     method_option :format, type: :string, default: 'text',
-                           aliases: '-f', enum: %w(text json)
+                           aliases: '-f', enum: %w(text json csv)
     def apple(path)
       if Dir.exists?(path)
         AppEarnings.apple_report(path, options[:format])

@@ -1,7 +1,7 @@
 module AppEarnings::Apple
   # Generates a report based on the data provided
   class Reporter
-    AVAILABLE_FORMATS = %w(json text)
+    AVAILABLE_FORMATS = %w(json text csv)
     attr_accessor :data, :config, :payments_amount, :exchange_info
 
     def initialize(config, data)
@@ -79,6 +79,8 @@ module AppEarnings::Apple
         as_text
       when 'json'
         as_json
+      when 'csv'
+        as_csv
       end
     end
 
@@ -97,7 +99,19 @@ module AppEarnings::Apple
     def as_json
       puts JSON.generate(apps: @reports.map(&:to_json),
                          currency: 'USD',
-                         total: full_amount)
+                         total: full_amount.round(2))
+    end
+
+    def as_csv
+      amount = AppEarnings::Report.amount_for_csv('USD', full_amount)
+      payments = AppEarnings::Report.amount_for_csv('USD', @payments_amount)
+      missing = missing_reports.map { |tr| tr[:vendor_identifier] }.uniq
+      @reports.each { |report| puts report.to_csv }
+      puts %Q("Apps missing:","#{not_found.join(", ")}") unless missing.empty?
+      puts %Q("Total of tax:","#{tax.round(2)}")
+      puts %Q("Total of all transactions:",#{amount})
+      puts %Q("Total from Payment Report:",#{payments}) if amount != payments
+      @reports
     end
   end
 end
