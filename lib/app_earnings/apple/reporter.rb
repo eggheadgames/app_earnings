@@ -23,8 +23,15 @@ module AppEarnings::Apple
       end
     end
 
+    def tax
+      @payments_data[:details].reduce(0.0) do |sum, data|
+        sum += data[:withholding_tax].to_f * data[:fx_rate].to_f
+        sum
+      end.abs
+    end
+
     def full_amount
-      @reports.reduce(0.0) { |a, e| a + e.amount.to_f }
+      @reports.reduce(0.0) { |a, e| a + e.amount.to_f } - tax
     end
 
     def transactions_by_app
@@ -81,6 +88,7 @@ module AppEarnings::Apple
       not_found = missing_reports.map { |tr| tr[:vendor_identifier] }.uniq
       puts @reports
       puts "Apps missing: #{not_found.join(", ")}" unless not_found.empty?
+      puts "Total of tax: #{tax.round(2)}"
       puts "Total of all transactions: #{amount}"
       puts "Total from Payment Report: #{payments}" if amount != payments
       @reports
