@@ -87,10 +87,11 @@ module AppEarnings::Apple
     def as_text
       amount = AppEarnings::Report.formatted_amount('USD', full_amount)
       payments = AppEarnings::Report.formatted_amount('USD', @payments_amount)
+      taxes =  AppEarnings::Report.formatted_amount('USD', tax)
       not_found = missing_reports.map { |tr| tr[:vendor_identifier] }.uniq
       puts @reports
       puts "Apps missing: #{not_found.join(", ")}" unless not_found.empty?
-      puts "Total of tax: #{tax.round(2)}"
+      puts "Total of taxes: #{taxes}"
       puts "Total of all transactions: #{amount}"
       puts "Total from Payment Report: #{payments}" if amount != payments
       @reports
@@ -105,12 +106,13 @@ module AppEarnings::Apple
     def as_csv
       amount = AppEarnings::Report.amount_for_csv('USD', full_amount)
       payments = AppEarnings::Report.amount_for_csv('USD', @payments_amount)
+      taxes =  AppEarnings::Report.formatted_amount('USD', tax)
       missing = missing_reports.map { |tr| tr[:vendor_identifier] }.uniq
       @reports.each { |report| puts report.to_csv }
       puts %Q("Apps missing:","#{not_found.join(", ")}") unless missing.empty?
-      puts %Q("Total of tax:","#{tax.round(2)}")
-      puts %Q("Total of all transactions:",#{amount})
-      puts %Q("Total from Payment Report:",#{payments}) if amount != payments
+      puts %Q("Total of taxes:","#{taxes}")
+      puts %Q("Total of all transactions:",#{amount}")
+      puts %Q("Total from Payment Report:",#{payments}") if amount != payments
       @reports
     end
   end
