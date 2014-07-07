@@ -74,13 +74,14 @@ module AppEarnings
         end
     end
 
-    def self.formatted_amount(currency, amount)
+    def self.formatted_amount(currency, amount, hide_currency = false)
       symbol = ISO4217::Currency.from_code(currency).symbol
+      currency = '' if hide_currency
       "#{currency} #{symbol}#{sprintf('%.2f', amount)}"
     end
 
     def self.amount_for_csv(currency, amount)
-      formatted_amount(currency, amount).split(' ').join("\",\"")
+      formatted_amount(currency, amount, true).split(' ').join("\",\"")
     end
 
     def to_json

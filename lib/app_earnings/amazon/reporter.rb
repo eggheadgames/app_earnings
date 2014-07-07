@@ -92,9 +92,9 @@ module AppEarnings::Amazon
       refund = AppEarnings::Report.amount_for_csv('USD', refunds)
       payments = AppEarnings::Report.amount_for_csv('USD', @payments_amount)
       @reports.each { |report| puts report.to_csv }
-      puts %Q("Total of refunds:",#{refund}")
-      puts %Q("Total of all transactions:",#{amount}")
-      puts %Q("Total from Payment Report:", #{payments}") if amount != payments
+      puts %Q("Total of refunds:","#{refund}")
+      puts %Q("Total of all transactions:","#{amount}")
+      puts %Q("Total from Payment Report:","#{payments}") if amount != payments
       @reports
     end
   end

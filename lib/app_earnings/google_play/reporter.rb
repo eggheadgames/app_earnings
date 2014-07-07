@@ -66,9 +66,9 @@ module AppEarnings::GooglePlay
 
     def as_csv
       currency, total = full_amount
-      formatted_amount = AppEarnings::Report.formatted_amount(currency, total)
+      formatted_amount = AppEarnings::Report.amount_for_csv(currency, total)
       @reports.each { |report| puts report.to_csv }
-      puts "\"Total of all transactions:\", #{formatted_amount}\""
+      puts %Q("Total of all transactions:", "#{formatted_amount}")
       @reports
     end
   end
