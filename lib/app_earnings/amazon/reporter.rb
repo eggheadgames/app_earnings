@@ -105,7 +105,7 @@ module AppEarnings::Amazon
       puts %Q("Total of refunds:","#{refund}")
       puts %Q("Total of all transactions:","#{amount}")
       puts %Q("Total from Payment Report:","#{payments}") if amount != payments
-      puts %Q("validate_date_range") if validate_date_range
+      puts %Q("#{validate_date_range}") if validate_date_range
       @reports
     end
   end
