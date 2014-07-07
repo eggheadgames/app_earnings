@@ -5,14 +5,13 @@ module AppEarnings::Amazon
     attr_accessor :data
 
     def initialize(data)
-      @data = data
+      @payments_amount, @data = 0.0, data
       @payments_data = @data.find { |r| r[:report_type] == :payments }
       @earnings_data = (@data - [@payments_data]).first
       @exchange_info = fetch_exchange_info
     end
 
     def fetch_exchange_info
-      @payments_amount = 0.0
       @payments_data[:summary].reduce({}) do |all_info, data|
         all_info[data[:marketplace]] = data[:fx_rate]
         @payments_amount += data[:total_payment].gsub(/,/, '').to_f
@@ -21,8 +20,7 @@ module AppEarnings::Amazon
     end
 
     def full_amount
-      total = @reports.reduce(0.0) { |a, e| a + e.amount.to_f }
-      total - refunds
+      @reports.reduce(0.0) { |a, e| a + e.amount.to_f } - refunds
     end
 
     def refunds
@@ -30,8 +28,7 @@ module AppEarnings::Amazon
         currency = marketplace[:marketplace]
         amount = marketplace[:refunds].gsub(/\(|\)/, '').to_f
         amount = amount * @exchange_info[currency].to_f if currency != 'USD'
-        sum += amount
-        sum
+        sum + amount
       end
     end
 
@@ -41,7 +38,6 @@ module AppEarnings::Amazon
         if raw_data[:report_type] == :earnings
           by_apps = raw_data[:details].group_by { |element| element[:app] }
                                       .sort_by { |app| app }
-
           by_apps.each do |key, application|
             @reports << AmazonReport.new(key, application, @exchange_info)
           end
@@ -70,6 +66,19 @@ module AppEarnings::Amazon
       end
     end
 
+    def validate_date_range
+      period = @payments_data[:summary].first[:earnings_period]
+      start_date, end_date = period.gsub(/\s+/, '').split('-').map do |date|
+        Date.strptime(date, '%m/%d/%Y')
+      end
+      transaction = @earnings_data[:details].first[:date]
+      transaction_date = Date.strptime(transaction, '%m/%d/%Y')
+      if transaction_date < start_date ||
+         transaction_date > end_date
+        "Invalid dates: #{period} does not include #{transaction}"
+      end
+    end
+
     def as_text
       amount = AppEarnings::Report.formatted_amount('USD', full_amount)
       refund = AppEarnings::Report.formatted_amount('USD', refunds)
@@ -78,6 +87,7 @@ module AppEarnings::Amazon
       puts "Total of refunds: #{refund}"
       puts "Total of all transactions: #{amount}"
       puts "Total from Payment Report: #{payments}" if amount != payments
+      puts validate_date_range if validate_date_range
       @reports
     end
 
@@ -95,6 +105,7 @@ module AppEarnings::Amazon
       puts %Q("Total of refunds:","#{refund}")
       puts %Q("Total of all transactions:","#{amount}")
       puts %Q("Total from Payment Report:","#{payments}") if amount != payments
+      puts %Q("validate_date_range") if validate_date_range
       @reports
     end
   end
