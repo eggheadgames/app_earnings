@@ -26,17 +26,21 @@ module AppEarnings::Apple
       end
     end
 
-    def amount_from_transactions(transactions)
-      amounts = transactions.reduce({}) do |sum, transaction|
+    def all_amounts(transactions)
+      transactions.reduce({}) do |sum, transaction|
         marketplace = transaction[:partner_share_currency]
         sum[marketplace] ||= 0.0
         sum[marketplace] += transaction[:extended_partner_share].to_f
         sum
       end
+    end
+
+    def amount_from_transactions(transactions)
+      total = all_amounts(transactions)
 
       {
         currency: 'USD',
-        amount: convert_amounts(amounts).round(2)
+        amount: convert_amounts(total).round(2)
       }
     end
   end

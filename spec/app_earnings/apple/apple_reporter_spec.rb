@@ -24,7 +24,7 @@ describe AppEarnings::Apple::Reporter do
 
   it "should report missing apps when transactions are not in config" do
     reporter.config = {}
-    expect(reporter.missing_reports.first[:vendor_identifier]).to eq("Chess")
+    expect(reporter.missing_reports.first).to eq("Chess")
   end
 
   it "should fetch the total amount from the payments file" do
